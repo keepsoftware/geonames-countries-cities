@@ -2,7 +2,9 @@ var fs      = require('fs');
 var byline  = require('byline');
 var _       = require('lodash');
 var Promise = require('bluebird');
-
+/**
+    jlgdfgjk
+*/
 module.exports = {
     read_countries: function() {
         return new Promise(function(resolve) {
@@ -31,17 +33,36 @@ module.exports = {
                     //languages:          data[15],
                     //geoname_id:         data[16],
                     //neighbours:         data[17],
-                    cities: []
+                    // cities: []
                 });
             }).on('end', function() {
                 resolve(countries);
             });
         });
     },
+    read_states: function() {
+        return new Promise(function(resolve) {
+            var states = [];
+            var stream = byline(fs.createReadStream('input/admin1CodesASCII.txt', {encoding: 'utf8'}));
+            stream.on('data', function(line) {
+                var data = line.split('\t');
+                var state = {
+                    state_id:       data[0],
+                    name:           data[1],
+                    asciiname:      data[2],
+                    country_code:   data[3],
+                };
+                states.push(state);
+            }).on('end', function() {
+                resolve(states);
+            });
+        });
+    },
     read_cities: function() {
         return new Promise(function(resolve) {
             var cities = [];
-            var stream = byline(fs.createReadStream('input/cities15000.txt', {encoding: 'utf8'}));
+            var stream = byline(fs.createReadStream('input/cities1000.txt', {encoding: 'utf8'}));
+            // var stream = byline(fs.createReadStream('input/citiesTest.txt', {encoding: 'utf8'}));
             stream.on('data', function(line) {
                 var data = line.split('\t');
                 var city = {
@@ -53,11 +74,11 @@ module.exports = {
                     longitude:      data[5],
                     //feature_class:  data[6],
                     //feature_code:   data[7],
-                    //cc2:            data[9],
-                    //admin1_code:    data[10],
-                    //admin2_code:    data[11],
-                    //admin3_code:    data[12],
-                    //admin4_code:    data[13],
+                    // cc2:            data[9],
+                    admin1_code:    data[10],
+                    // admin2_code:    data[11],
+                    // admin3_code:    data[12],
+                    // admin4_code:    data[13],
                     //population:     data[14],
                     //elevation:      data[15],
                     //dem:            data[16],
