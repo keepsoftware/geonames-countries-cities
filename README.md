@@ -1,6 +1,6 @@
 ## geonames-countries-cities
 
-Output geonames countries, states and main cities on a multiple json files;
+Output geonames countries, states and main cities on multiple json files;
 
 Add support to deepstream.io ;)
 
